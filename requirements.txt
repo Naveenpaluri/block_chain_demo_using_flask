@@ -1,0 +1,5 @@
+flask
+pycryptodome
+cryptography
+requests
+pubnub==4.1.6

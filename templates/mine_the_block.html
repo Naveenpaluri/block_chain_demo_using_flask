@@ -1,0 +1,15 @@
+{%extends "base.html" %}
+{% block main %}
+<div class="container mt-5">
+    <h2 style="color:rgb(255, 32, 0)" > <strong> The Pending Block Details are: </strong></h2>
+    <p>{{ block }}</p>
+    <br>
+    <h2 style="color:rgb(255, 32, 0)"> <strong> Click here to mine the Block </strong></h2>
+
+    <!-- Bootstrap button within a form -->
+    <form action="{{ url_for('blockchain_mine') }}" method="post">
+        <button type="submit" class="btn btn-primary">Mine Block</button>
+    </form>
+</div>
+
+{% endblock %}

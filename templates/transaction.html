@@ -1,0 +1,18 @@
+{%extends "base.html" %}
+{% block main %}
+<h2> Send Crypto Currency: </h2>
+    <form action="{{ url_for('wallet_transact') }}" method="post" >
+        <!-- Public Address Field -->
+        <div class="form-group">
+            <label for="publicAddress">Public Address of Receiver:</label>
+            <input type="text" name="recipient" class="form-control" id="publicAddress" placeholder="Enter Public Address" required>
+        </div>
+        <!-- Amount Field -->
+        <div class="form-group">
+            <label for="amount">Crypto:</label>
+            <input type="number" name="amount" class="form-control" id="amount" placeholder="Enter Crypto" required>
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}
