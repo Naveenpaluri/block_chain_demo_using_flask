@@ -1,7 +1,7 @@
 import json
 import uuid
 
-from block_chain_demo_using_flask.config import STARTING_BALANCE_WALLET_A
+from block_chain_demo_using_flask.config import STARTING_BALANCE_WALLET_B
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives.asymmetric.utils import encode_dss_signature, decode_dss_signature
@@ -9,7 +9,7 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.exceptions import InvalidSignature
 
 
-class WalletA:
+class WalletB:
     """
     An individual wallet for a miner.
     Keeps track of the miner's balance.
@@ -24,7 +24,14 @@ class WalletA:
 
     @property
     def balance(self):
-        return WalletA.calculate_balance(self.blockchain, self.address)
+        return WalletB.calculate_balance(self.blockchain, self.address)
+
+    def sign(self, data):
+        """
+        Generate a signature based on the data using the local private key.
+        """
+        return decode_dss_signature(self.private_key.sign(json.dumps(data).encode('utf-8'),
+                                                          ec.ECDSA(hashes.SHA256())))
 
     def serialize_public_key(self):
         """
@@ -34,16 +41,6 @@ class WalletA:
             encoding=serialization.Encoding.PEM,
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         ).decode('utf-8')
-        # print(f"serialized_public_key:{self.public_key}")
-
-    def sign(self, data):
-        """
-        Generate a signature based on the data using the local private key.
-        """
-        signature = decode_dss_signature(self.private_key.sign(json.dumps(data).encode('utf-8'),
-                                                                 ec.ECDSA(hashes.SHA256())))
-        # print(f"signature: {signature}")
-        return signature
 
     @staticmethod
     def verify(public_key, data, signature):
@@ -54,8 +51,6 @@ class WalletA:
             public_key.encode('utf-8'),
             default_backend()
         )
-        # converts the serialized public key into its object format --BEGIN-- to < object > form
-        # print(f"deserialized_public_key:{deserialized_public_key}")
 
         (r, s) = signature
 
@@ -77,7 +72,7 @@ class WalletA:
         The balance is found by adding the output values that belong to the
         address since the most recent transaction by that address.
         """
-        balance = STARTING_BALANCE_WALLET_A
+        balance = STARTING_BALANCE_WALLET_B
 
         if not blockchain:
             return balance
@@ -93,17 +88,17 @@ class WalletA:
 
 
 def main():
-    wallet = WalletA()
+    wallet = WalletB()
     print(f'wallet.__dict__: {wallet.__dict__}')
 
     data = {'foo': 'bar'}
     signature = wallet.sign(data)
     print(f'signature: {signature}')
 
-    should_be_valid = WalletA.verify(wallet.public_key, data, signature)
+    should_be_valid = WalletB.verify(wallet.public_key, data, signature)
     print(f'should_be_valid: {should_be_valid}')
 
-    should_be_invalid = WalletA.verify(wallet.public_key, data, signature)
+    should_be_invalid = WalletB.verify(wallet.public_key, data, signature)
     print(f'should_be_invalid: {should_be_invalid}')
 
 

@@ -1,7 +1,7 @@
 import time
-from utils.crypto_hash import crypto_hash
-from utils.hex_to_binary import hex_to_binary
-from config import MINE_RATE
+from block_chain_demo_using_flask.utils.crypto_hash import crypto_hash
+from block_chain_demo_using_flask.utils.hex_to_binary import hex_to_binary
+from block_chain_demo_using_flask.config import MINE_RATE
 
 GENESIS_DATA = {
     'timestamp': 1,

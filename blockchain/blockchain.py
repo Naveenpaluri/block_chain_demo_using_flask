@@ -1,4 +1,4 @@
-from blockchain.block import Block
+from block_chain_demo_using_flask.blockchain.block import Block
 
 
 class Blockchain:

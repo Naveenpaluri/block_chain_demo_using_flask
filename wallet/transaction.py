@@ -1,7 +1,8 @@
 import time
 import uuid
 
-from wallet.wallet import Wallet
+from block_chain_demo_using_flask.wallet.wallet import WalletA
+from block_chain_demo_using_flask.wallet.wallet2 import WalletB
 
 
 class Transaction:
@@ -50,7 +51,7 @@ class Transaction:
         Structure the output data for the transaction.
         """
         if amount > sender_wallet.balance:
-            raise Exception('Amount exceeds balance')
+            raise Exception('Amount exceeds Wallet balance')
 
         output = {}
         # Empty dict
@@ -73,7 +74,9 @@ class Transaction:
 
 
 def main():
-    transaction = Transaction(Wallet(), 'recipient', 15)
+    transaction = Transaction(WalletA(), 'recipient', 15)
+    print(f'transaction.__dict__: {transaction.to_json()}')
+    transaction = Transaction(WalletB(), 'recipient', 20)
     print(f'transaction.__dict__: {transaction.to_json()}')
 
 

@@ -1,0 +1,13 @@
+{%extends "base.html" %}
+{% block main %}
+<form action="{{ url_for('wallet_info') }}" method="post" >
+        <div class="form-group">
+            <label for="walletSelect" style="color:rgb(255, 255, 255)"> <strong> Select Wallet: </strong> </label>
+            <select class="form-control" id="walletSelect" name="selectedWallet">
+                <option value="WalletA">Wallet A</option>
+                <option value="WalletB">Wallet B</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

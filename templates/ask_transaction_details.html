@@ -13,6 +13,13 @@
             <input type="number" name="amount" class="form-control" id="amount" placeholder="Enter Crypto" required>
         </div>
         <!-- Submit Button -->
+        <div class="form-group">
+            <label for="walletSelect">Select Wallet:</label>
+            <select class="form-control" id="walletSelect" name="selectedWallet">
+                <option value="WalletA">Wallet A</option>
+                <option value="WalletB">Wallet B</option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 {% endblock %}

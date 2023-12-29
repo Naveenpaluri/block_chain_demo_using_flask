@@ -1,4 +1,4 @@
-from utils.crypto_hash import crypto_hash
+from block_chain_demo_using_flask.utils.crypto_hash import crypto_hash
 
 HEX_TO_BINARY_CONVERSION_TABLE = {
     '0': '0000',
